@@ -1,131 +1,106 @@
-# End to end Text-Summarizer-Project
+# 📚 End-to-End Text Summarizer Project
 
-## Workflows
+This project implements an **End-to-End Text Summarization** pipeline that leverages a streamlined workflow for configuration, pipeline creation, and deployment. It includes an interactive web application for summarizing text efficiently.
 
-1. Update config.yaml
-2. Update params.yaml
-3. Update entity
-4. Update the configuration manager in src config
-5. update the conponents
-6. update the pipeline
-7. update the main.py
-8. update the app.py
+---
 
+## 🛠 Workflows
 
-# How to run?
-### STEPS:
+1. **Update config.yaml**: Define project-wide configurations.
+2. **Update params.yaml**: Set hyperparameters and model parameters.
+3. **Update entity**: Define entities for the project.
+4. **Update the configuration manager in `src/config`**: Manage configurations effectively.
+5. **Update the components**: Build modular, reusable components.
+6. **Update the pipeline**: Construct the data and ML pipeline.
+7. **Update the `main.py`**: Define the project’s entry point.
+8. **Update the `app.py`**: Create a web application for text summarization.
 
-Clone the repository
+---
 
-```bash
-https://github.com/entbappy/End-to-end-Text-Summarization
-```
-### STEP 01- Create a conda environment after opening the repository
+## 🚀 How to Run?
 
-```bash
-conda create -n summary python=3.8 -y
-```
+### **STEPS**:
 
-```bash
-conda activate summary
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/entbappy/End-to-end-Text-Summarization
+   ```
+2. **Create a Conda environment**:
+   ```bash
+   conda create -n summary python=3.8 -y
+   conda activate summary
+   ```
+3. **Install the requirements**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Run the application**:
+   ```bash
+   python app.py
+   ```
 
+5. Open your local host and port to access the application.
 
-### STEP 02- install the requirements
-```bash
-pip install -r requirements.txt
-```
+---
 
+## ✍️ Author
 
-```bash
-# Finally run the following command
-python app.py
-```
+- **Devaraj Veeravel**  
+  *Data Scientist*  
+  Email: [devarajveeravel@gmail.com](mailto:devarajveeravel@gmail.com)
 
-Now,
-```bash
-open up you local host and port
-```
+---
 
+# 🛡️ AWS CI/CD Deployment with GitHub Actions
 
-```bash
-Author: Devaraj Veeravel
-Data Scientist
-Email: devarajveeravel@gmail.com
+This project supports **AWS CI/CD Deployment** using **GitHub Actions**, ensuring seamless deployment of the text summarizer application.
 
-```
+### Deployment Steps:
 
+1. **Login to AWS Console**:
+   - Create an **IAM user** for deployment with the following policies:
+     - `AmazonEC2ContainerRegistryFullAccess`
+     - `AmazonEC2FullAccess`
 
+2. **Prepare AWS Resources**:
+   - **ECR**: Create a repository in Elastic Container Registry to store the Docker image.
+     - Save the URI (e.g., `566373416292.dkr.ecr.us-east-1.amazonaws.com/text-s`).
+   - **EC2**: Launch an Ubuntu EC2 instance to host the application.
 
-# AWS-CICD-Deployment-with-Github-Actions
+3. **Install Docker on EC2**:
+   ```bash
+   sudo apt-get update -y
+   sudo apt-get upgrade -y
+   curl -fsSL https://get.docker.com -o get-docker.sh
+   sudo sh get-docker.sh
+   sudo usermod -aG docker ubuntu
+   newgrp docker
+   ```
 
-## 1. Login to AWS console.
+4. **Deploy the Application**:
+   - **Build the Docker image** of the source code.
+   - **Push the Docker image to ECR**.
+   - **Pull the Docker image in EC2** and launch it.
 
-## 2. Create IAM user for deployment
+5. **Configure EC2 as a Self-Hosted Runner**:
+   - Navigate to `Settings > Actions > Runners > New self-hosted runner`.
+   - Follow the provided commands to set up the runner.
 
-	#with specific access
+6. **Setup GitHub Secrets**:
+   Add the following secrets in your GitHub repository:
+   - `AWS_ACCESS_KEY_ID`
+   - `AWS_SECRET_ACCESS_KEY`
+   - `AWS_REGION` (e.g., `us-east-1`)
+   - `AWS_ECR_LOGIN_URI` (e.g., `566373416292.dkr.ecr.us-east-1.amazonaws.com`)
+   - `ECR_REPOSITORY_NAME` (e.g., `text-s`)
 
-	1. EC2 access : It is virtual machine
+---
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+## 📜 Summary of Deployment
 
+1. **Build Docker image** of the application.
+2. **Push the image to ECR** for storage.
+3. **Launch an EC2 instance** and pull the Docker image.
+4. **Run the application** on EC2 as a Docker container.
 
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566373416292.dkr.ecr.us-east-1.amazonaws.com/text-s
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = us-east-1
-
-    AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = simple-app
+This setup ensures reliable, scalable, and automated deployment for production-ready applications.
